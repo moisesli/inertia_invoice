@@ -6,6 +6,9 @@ use App\Models\Producto;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use Illuminate\Support\Facades\Redirect;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\DB;
+
 
 class ProductosController extends Controller
 {
@@ -14,10 +17,16 @@ class ProductosController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $productos = Producto::all();
-        return Inertia::render('Productos/List',['productos'=>$productos]);
+        $productos = Producto::where('productos.nombre', 'like', '%'.$request->busq.'%')->paginate(5)->withQueryString();
+        return Inertia::render(
+            'Productos/List',
+            [
+                'productos' => $productos,
+                'filters' => ['busq' => $request->busq]
+            ]
+        );
     }
 
     /**
@@ -27,7 +36,7 @@ class ProductosController extends Controller
      */
     public function create()
     {
-        //
+        return Inertia::render('Productos/Create');
     }
 
     /**
