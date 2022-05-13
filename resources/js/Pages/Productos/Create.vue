@@ -34,6 +34,47 @@
                   />
                </div>
             </div>
+            <!-- End Primera Fila -->
+            <!-- Segunda Fila -->
+            <div class="flex flex-col md:flex-row md:mt-3">
+               <div class="md:w-1/3">
+                  <JetLabel for="nombre" value="Nombre"/>
+                  <JetInput
+                     type="text"
+                     placeholder="82.00"
+                     class="mt-1 block w-full"
+                     required
+                     autofocus
+                  />
+               </div>
+               <div class="md:w-1/3 md:ml-4 mt-2 md:mt-0">
+                  <JetLabel for="codigo" value="Codigo"/>
+                  <JetInput
+                     placeholder="18.00"
+                     type="text"
+                     class="mt-1 block w-full"
+                     required
+                     autofocus
+                  />
+               </div>
+               <div class="md:w-1/3 md:ml-4 mt-2 md:mt-0">
+                  <JetLabel for="codigo" value="Codigo"/>
+                  <JetInput
+                     placeholder="100.00"
+                     type="text"
+                     class="mt-1 block w-full"
+                     required
+                     autofocus
+                  />
+               </div>
+            </div>
+            <!-- End Segunda Fila -->
+            <!-- Button -->
+            <div class="flex justify-end mt-4">
+               <JetButton class="ml-4">
+                  Crear Producto
+               </JetButton>
+            </div>
          </div>
       </div>
 
@@ -45,13 +86,15 @@ import AppLayout from '@/Layouts/AppLayout.vue';
 import JetButton from '@/Jetstream/Button.vue';
 import JetInput from '@/Jetstream/Input.vue';
 import JetLabel from '@/Jetstream/Label.vue';
+import JetValidationErrors from '@/Jetstream/ValidationErrors.vue';
 
 export default {
    components: {
       AppLayout,
       JetButton,
       JetInput,
-      JetLabel
+      JetLabel,
+      JetValidationErrors
    }
 }
 </script>
