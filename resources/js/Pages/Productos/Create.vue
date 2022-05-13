@@ -9,6 +9,7 @@
 
       <div class="max-w-2xl mx-auto">
          <div class="shadow-md sm:rounded-lg px-8 py-6  my-12 bg-white">
+
             <!-- Primera Fila -->
             <div class="flex flex-col md:flex-row">
                <div class="md:w-3/5">
@@ -34,6 +35,8 @@
                   />
                </div>
             </div>
+
+            
          </div>
       </div>
 
