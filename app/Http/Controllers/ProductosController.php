@@ -47,7 +47,16 @@ class ProductosController extends Controller
      */
     public function store(Request $request)
     {
-        //
+      $request->validate([
+        'nombre' => 'required|unique',
+        'codigo' => 'required',
+        'precio_sin_igv' => 'required',
+        'igv' => 'required',
+        'precio_con_igv' => 'required'
+      ]);
+
+      Producto::create($request->all());
+      return Redirect::route('productos.index');
     }
 
     /**

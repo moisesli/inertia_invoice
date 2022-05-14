@@ -1,95 +1,95 @@
 <template>
-   <AppLayout title="Dashboard">
-      <template #header>
-         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            Crear Producto
-         </h2>
-      </template>
+  <AppLayout title="Dashboard">
+    <template #header>
+      <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+        Crear Producto
+      </h2>
+    </template>
 
 
-      <div class="max-w-2xl mx-auto">
-         <div class="shadow-md sm:rounded-lg px-8 py-6  my-12 bg-white">
+    <div class="max-w-2xl mx-auto">
+      <div class="shadow-md sm:rounded-lg px-8 py-6  my-12 bg-white">
+        <JetValidationErrors class="mb-4" />
+        <form @submit.prevent="submit">
+          <!-- Primera Fila -->
+          <div class="flex flex-col md:flex-row">
+            <div class="md:w-3/5">
+              <JetLabel for="nombre" value="Nombre"/>
+              <JetInput
+                id="nombre"
+                type="text"
+                v-model="form.nombre"
+                placeholder="Arroz Costenio Graneadito"
+                class="mt-1 block w-full"
+                required
+                autofocus
+              />
+            </div>
+            <div class="md:w-2/5 md:ml-4 mt-2 md:mt-0">
+              <JetLabel for="codigo" value="Codigo"/>
+              <JetInput
+                id="codigo"
+                placeholder="ARROZ54"
+                v-model="form.codigo"
+                type="text"
+                class="mt-1 block w-full"
+                required
+                autofocus
+              />
+            </div>
+          </div>
+          <!-- End Primera Fila -->
 
-            <form @submit.prevent="submit">
-               <!-- Primera Fila -->
-               <div class="flex flex-col md:flex-row">
-                  <div class="md:w-3/5">
-                     <JetLabel for="nombre" value="Nombre"/>
-                     <JetInput
-                        id="nombre"
-                        type="text"
-                        v-model="form.nombre"
-                        placeholder="Arroz Costenio Graneadito"
-                        class="mt-1 block w-full"
-                        required
-                        autofocus
-                     />
-                  </div>
-                  <div class="md:w-2/5 md:ml-4 mt-2 md:mt-0">
-                     <JetLabel for="codigo" value="Codigo"/>
-                     <JetInput
-                        id="codigo"
-                        placeholder="ARROZ54"
-                        v-model="form.codigo"
-                        type="text"
-                        class="mt-1 block w-full"
-                        required
-                        autofocus
-                     />
-                  </div>
-               </div>
-               <!-- End Primera Fila -->
+          <!-- Segunda Fila -->
+          <div class="flex flex-col md:flex-row md:mt-3">
+            <div class="md:w-1/3">
+              <JetLabel for="precio_sin_igv" value="Subtotal"/>
+              <JetInput
+                type="text"
+                placeholder="82.00"
+                v-model="form.precio_sin_igv"
+                class="mt-1 block w-full text-right"
+                required
+                autofocus
+              />
+            </div>
+            <div class="md:w-1/3 md:ml-4 mt-2 md:mt-0">
+              <JetLabel for="codigo" value="Codigo"/>
+              <JetInput
+                placeholder="18.00"
+                v-model="form.igv"
+                type="text"
+                class="mt-1 block w-full text-right"
+                required
+                autofocus
+              />
+            </div>
+            <div class="md:w-1/3 md:ml-4 mt-2 md:mt-0">
+              <JetLabel for="codigo" value="Codigo"/>
+              <JetInput
+                placeholder="100.00"
+                v-model="form.precio_con_igv"
+                type="text"
+                class="mt-1 block w-full text-right"
+                required
+                autofocus
+              />
+            </div>
+          </div>
+          <!-- End Segunda Fila -->
 
-               <!-- Segunda Fila -->
-               <div class="flex flex-col md:flex-row md:mt-3">
-                  <div class="md:w-1/3">
-                     <JetLabel for="precio_sin_igv" value="Subtotal"/>
-                     <JetInput
-                        type="text"
-                        placeholder="82.00"
-                        v-model="form.precio_sin_igv"
-                        class="mt-1 block w-full text-right"
-                        required
-                        autofocus
-                     />
-                  </div>
-                  <div class="md:w-1/3 md:ml-4 mt-2 md:mt-0">
-                     <JetLabel for="codigo" value="Codigo"/>
-                     <JetInput
-                        placeholder="18.00"
-                        v-model="form.igv"
-                        type="text"
-                        class="mt-1 block w-full text-right"
-                        required
-                        autofocus
-                     />
-                  </div>
-                  <div class="md:w-1/3 md:ml-4 mt-2 md:mt-0">
-                     <JetLabel for="codigo" value="Codigo"/>
-                     <JetInput
-                        placeholder="100.00"
-                        v-model="form.precio_con_igv"
-                        type="text"
-                        class="mt-1 block w-full text-right"
-                        required
-                        autofocus
-                     />
-                  </div>
-               </div>
-               <!-- End Segunda Fila -->
+          <!-- Button -->
+          <div class="flex justify-end mt-4">
+            <JetButton class="ml-4 py-2.5" :class="{ 'opacity-25': form.processing }" :disabled="form.processing">
+              Crear Producto
+            </JetButton>
+          </div>
+        </form>
 
-               <!-- Button -->
-               <div class="flex justify-end mt-4">
-                  <JetButton class="ml-4">
-                     Crear Producto
-                  </JetButton>
-               </div>
-            </form>
-
-         </div>
       </div>
+    </div>
 
-   </AppLayout>
+  </AppLayout>
 </template>
 
 <script>
@@ -101,29 +101,30 @@ import JetLabel from '@/Jetstream/Label.vue';
 import JetValidationErrors from '@/Jetstream/ValidationErrors.vue';
 
 export default {
-   components: {
-      AppLayout,
-      JetButton,
-      JetInput,
-      JetLabel,
-      JetValidationErrors,
-      useForm,
-   },
-   data() {
-      return {
-         form: this.$inertia.form({
-            nombre: 'Arroz Costenio Graneadito',
-            codigo: 'ARROZRET',
-            precio_sin_igv: "82.98",
-            igv: "18.54",
-            precio_con_igv: "100.87",
-         })
-      }
-   },
-   methods: {
-      submit: function () {
-         console.log(this.form);
-      }
-   }
+  components: {
+    AppLayout,
+    JetButton,
+    JetInput,
+    JetLabel,
+    JetValidationErrors,
+    useForm,
+  },
+  data() {
+    return {
+      form: this.$inertia.form({
+        nombre: 'Arroz Costenio Graneadito',
+        codigo: 'ARROZRET',
+        precio_sin_igv: "82.98",
+        igv: "18.54",
+        precio_con_igv: "100.87",
+      })
+    }
+  },
+  methods: {
+    submit: function () {
+      this.$inertia.post(route('productos.store'), this.form);
+      console.log(this.form);
+    }
+  }
 }
 </script>
