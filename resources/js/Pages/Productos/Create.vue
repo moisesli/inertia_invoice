@@ -10,73 +10,81 @@
       <div class="max-w-2xl mx-auto">
          <div class="shadow-md sm:rounded-lg px-8 py-6  my-12 bg-white">
 
-            <!-- Primera Fila -->
-            <div class="flex flex-col md:flex-row">
-               <div class="md:w-3/5">
-                  <JetLabel for="nombre" value="Nombre"/>
-                  <JetInput
-                     id="nombre"
-                     type="text"
-                     placeholder="Arroz Costenio Graneadito"
-                     class="mt-1 block w-full"
-                     required
-                     autofocus
-                  />
+            <form @submit.prevent="submit">
+               <!-- Primera Fila -->
+               <div class="flex flex-col md:flex-row">
+                  <div class="md:w-3/5">
+                     <JetLabel for="nombre" value="Nombre"/>
+                     <JetInput
+                        id="nombre"
+                        type="text"
+                        v-model="form.nombre"
+                        placeholder="Arroz Costenio Graneadito"
+                        class="mt-1 block w-full"
+                        required
+                        autofocus
+                     />
+                  </div>
+                  <div class="md:w-2/5 md:ml-4 mt-2 md:mt-0">
+                     <JetLabel for="codigo" value="Codigo"/>
+                     <JetInput
+                        id="codigo"
+                        placeholder="ARROZ54"
+                        v-model="form.codigo"
+                        type="text"
+                        class="mt-1 block w-full"
+                        required
+                        autofocus
+                     />
+                  </div>
                </div>
-               <div class="md:w-2/5 md:ml-4 mt-2 md:mt-0">
-                  <JetLabel for="codigo" value="Codigo"/>
-                  <JetInput
-                     id="codigo"
-                     placeholder="ARROZ54"
-                     type="text"
-                     class="mt-1 block w-full"
-                     required
-                     autofocus
-                  />
-               </div>
-            </div>
+               <!-- End Primera Fila -->
 
-            <!-- End Primera Fila -->
-            <!-- Segunda Fila -->
-            <div class="flex flex-col md:flex-row md:mt-3">
-               <div class="md:w-1/3">
-                  <JetLabel for="nombre" value="Nombre"/>
-                  <JetInput
-                     type="text"
-                     placeholder="82.00"
-                     class="mt-1 block w-full"
-                     required
-                     autofocus
-                  />
+               <!-- Segunda Fila -->
+               <div class="flex flex-col md:flex-row md:mt-3">
+                  <div class="md:w-1/3">
+                     <JetLabel for="precio_sin_igv" value="Subtotal"/>
+                     <JetInput
+                        type="text"
+                        placeholder="82.00"
+                        v-model="form.precio_sin_igv"
+                        class="mt-1 block w-full text-right"
+                        required
+                        autofocus
+                     />
+                  </div>
+                  <div class="md:w-1/3 md:ml-4 mt-2 md:mt-0">
+                     <JetLabel for="codigo" value="Codigo"/>
+                     <JetInput
+                        placeholder="18.00"
+                        v-model="form.igv"
+                        type="text"
+                        class="mt-1 block w-full text-right"
+                        required
+                        autofocus
+                     />
+                  </div>
+                  <div class="md:w-1/3 md:ml-4 mt-2 md:mt-0">
+                     <JetLabel for="codigo" value="Codigo"/>
+                     <JetInput
+                        placeholder="100.00"
+                        v-model="form.precio_con_igv"
+                        type="text"
+                        class="mt-1 block w-full text-right"
+                        required
+                        autofocus
+                     />
+                  </div>
                </div>
-               <div class="md:w-1/3 md:ml-4 mt-2 md:mt-0">
-                  <JetLabel for="codigo" value="Codigo"/>
-                  <JetInput
-                     placeholder="18.00"
-                     type="text"
-                     class="mt-1 block w-full"
-                     required
-                     autofocus
-                  />
+               <!-- End Segunda Fila -->
+
+               <!-- Button -->
+               <div class="flex justify-end mt-4">
+                  <JetButton class="ml-4">
+                     Crear Producto
+                  </JetButton>
                </div>
-               <div class="md:w-1/3 md:ml-4 mt-2 md:mt-0">
-                  <JetLabel for="codigo" value="Codigo"/>
-                  <JetInput
-                     placeholder="100.00"
-                     type="text"
-                     class="mt-1 block w-full"
-                     required
-                     autofocus
-                  />
-               </div>
-            </div>
-            <!-- End Segunda Fila -->
-            <!-- Button -->
-            <div class="flex justify-end mt-4">
-               <JetButton class="ml-4">
-                  Crear Producto
-               </JetButton>
-            </div>
+            </form>
 
          </div>
       </div>
@@ -85,6 +93,7 @@
 </template>
 
 <script>
+import {Head, Link, useForm} from '@inertiajs/inertia-vue3';
 import AppLayout from '@/Layouts/AppLayout.vue';
 import JetButton from '@/Jetstream/Button.vue';
 import JetInput from '@/Jetstream/Input.vue';
@@ -97,7 +106,24 @@ export default {
       JetButton,
       JetInput,
       JetLabel,
-      JetValidationErrors
+      JetValidationErrors,
+      useForm,
+   },
+   data() {
+      return {
+         form: this.$inertia.form({
+            nombre: 'Arroz Costenio Graneadito',
+            codigo: 'ARROZRET',
+            precio_sin_igv: "82.98",
+            igv: "18.54",
+            precio_con_igv: "100.87",
+         })
+      }
+   },
+   methods: {
+      submit: function () {
+         console.log(this.form);
+      }
    }
 }
 </script>
