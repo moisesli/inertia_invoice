@@ -9,7 +9,7 @@
 
     <div class="max-w-2xl mx-auto">
       <div class="shadow-md sm:rounded-lg px-8 py-6  my-12 bg-white">
-        <JetValidationErrors class="mb-4" />
+<!--        {{ errors }}-->
         <form @submit.prevent="submit">
           <!-- Primera Fila -->
           <div class="flex flex-col md:flex-row">
@@ -24,6 +24,7 @@
                 required
                 autofocus
               />
+              <div class="text-xs text-red-500" v-if="errors.nombre">{{ errors.nombre }}</div>
             </div>
             <div class="md:w-2/5 md:ml-4 mt-2 md:mt-0">
               <JetLabel for="codigo" value="Codigo"/>
@@ -36,6 +37,7 @@
                 required
                 autofocus
               />
+              <div class="text-xs text-red-500" v-if="errors.nombre">{{ errors.codigo }}</div>
             </div>
           </div>
           <!-- End Primera Fila -->
@@ -52,9 +54,10 @@
                 required
                 autofocus
               />
+              <div class="text-xs text-red-500" v-if="errors.precio_sin_igv">{{ errors.precio_sin_igv }}</div>
             </div>
             <div class="md:w-1/3 md:ml-4 mt-2 md:mt-0">
-              <JetLabel for="codigo" value="Codigo"/>
+              <JetLabel for="codigo" value="IGV"/>
               <JetInput
                 placeholder="18.00"
                 v-model="form.igv"
@@ -63,9 +66,10 @@
                 required
                 autofocus
               />
+              <div class="text-xs text-red-500" v-if="errors.igv">{{ errors.igv }}</div>
             </div>
             <div class="md:w-1/3 md:ml-4 mt-2 md:mt-0">
-              <JetLabel for="codigo" value="Codigo"/>
+              <JetLabel for="codigo" value="Total"/>
               <JetInput
                 placeholder="100.00"
                 v-model="form.precio_con_igv"
@@ -74,6 +78,7 @@
                 required
                 autofocus
               />
+              <div class="text-xs text-red-500" v-if="errors.precio_con_igv">{{ errors.precio_con_igv }}</div>
             </div>
           </div>
           <!-- End Segunda Fila -->
@@ -101,6 +106,9 @@ import JetLabel from '@/Jetstream/Label.vue';
 import JetValidationErrors from '@/Jetstream/ValidationErrors.vue';
 
 export default {
+  props: {
+    errors: Object
+  },
   components: {
     AppLayout,
     JetButton,
@@ -112,17 +120,17 @@ export default {
   data() {
     return {
       form: this.$inertia.form({
-        nombre: 'Arroz Costenio Graneadito',
+        nombre: 'Coralie Purdy',
         codigo: 'ARROZRET',
-        precio_sin_igv: "82.98",
-        igv: "18.54",
-        precio_con_igv: "100.87",
+        precio_sin_igv: 82.98,
+        igv: 18.54,
+        precio_con_igv: 100.87,
       })
     }
   },
   methods: {
     submit: function () {
-      this.$inertia.post(route('productos.store'), this.form);
+      this.$inertia.post('/productos', this.form);
       console.log(this.form);
     }
   }
