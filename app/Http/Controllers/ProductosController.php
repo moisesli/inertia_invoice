@@ -91,7 +91,8 @@ class ProductosController extends Controller
    */
   public function update(Request $request, Producto $producto)
   {
-    //
+    $producto->update($request->all());
+    return Redirect::route('productos.index');
   }
 
   /**

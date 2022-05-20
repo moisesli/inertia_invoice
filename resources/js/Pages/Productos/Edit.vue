@@ -7,8 +7,16 @@
       </h2>
     </template>
 
+
+
     <div class="max-w-2xl mx-auto">
-      <div class="shadow-md sm:rounded-lg px-8 py-6  my-12 bg-white">
+      <div class="flex justify-end pt-8 pb-4">
+        <JetButtonRed class="bg-red-400">
+          <i class="fa-regular fa-trash-can pr-2"></i> Eliminar
+        </JetButtonRed>
+      </div>
+      <div class="shadow-md sm:rouned-lg px-8 py-6  bg-white">
+
         <form @submit.prevent="submit">
           <!-- Primera Fila -->
           <div class="flex flex-col md:flex-row">
@@ -39,50 +47,62 @@
             </div>
           </div>
           <!-- End Primera Fila -->
+
+
+          <!-- Segunda Fila -->
+          <div class="flex flex-col md:flex-row md:mt-3">
+            <div class="md:w-1/3">
+              <JetLabel for="precio_sin_igv" value="Subtotal"/>
+              <JetInput
+                type="text"
+                placeholder="82.00"
+                v-model="form.precio_sin_igv"
+                class="mt-1 block w-full text-right"
+                required
+                autofocus
+              />
+              <div class="text-xs text-red-500" v-if="errors.precio_sin_igv">{{ errors.precio_sin_igv }}</div>
+            </div>
+            <div class="md:w-1/3 md:ml-4 mt-2 md:mt-0">
+              <JetLabel for="codigo" value="IGV"/>
+              <JetInput
+                placeholder="18.00"
+                v-model="form.igv"
+                type="text"
+                class="mt-1 block w-full text-right"
+                required
+                autofocus
+              />
+              <div class="text-xs text-red-500" v-if="errors.igv">{{ errors.igv }}</div>
+            </div>
+            <div class="md:w-1/3 md:ml-4 mt-2 md:mt-0">
+              <JetLabel for="codigo" value="Total"/>
+              <JetInput
+                placeholder="100.00"
+                v-model="form.precio_con_igv"
+                type="text"
+                class="mt-1 block w-full text-right"
+                required
+                autofocus
+              />
+              <div class="text-xs text-red-500" v-if="errors.precio_con_igv">{{ errors.precio_con_igv }}</div>
+            </div>
+          </div>
+          <!-- End Segunda Fila -->
+
+          <!-- Button -->
+          <div class="flex justify-end mt-4">
+            <JetButtonBlue class="ml-4 py-2.5" :class="{ 'opacity-25': form.processing }" :disabled="form.processing">
+              Cancelar
+            </JetButtonBlue>
+            <JetButton class="ml-4 py-2.5" :class="{ 'opacity-25': form.processing }" :disabled="form.processing">
+              Editar Producto
+            </JetButton>
+          </div>
+
         </form>
 
-        <!-- Segunda Fila -->
-        <div class="flex flex-col md:flex-row md:mt-3">
-          <div class="md:w-1/3">
-            <JetLabel for="precio_sin_igv" value="Subtotal"/>
-            <JetInput
-              type="text"
-              placeholder="82.00"
-              v-model="form.precio_sin_igv"
-              class="mt-1 block w-full text-right"
-              required
-              autofocus
-            />
-            <div class="text-xs text-red-500" v-if="errors.precio_sin_igv">{{ errors.precio_sin_igv }}</div>
-          </div>
-          <div class="md:w-1/3 md:ml-4 mt-2 md:mt-0">
-            <JetLabel for="codigo" value="IGV"/>
-            <JetInput
-              placeholder="18.00"
-              v-model="form.igv"
-              type="text"
-              class="mt-1 block w-full text-right"
-              required
-              autofocus
-            />
-            <div class="text-xs text-red-500" v-if="errors.igv">{{ errors.igv }}</div>
-          </div>
-          <div class="md:w-1/3 md:ml-4 mt-2 md:mt-0">
-            <JetLabel for="codigo" value="Total"/>
-            <JetInput
-              placeholder="100.00"
-              v-model="form.precio_con_igv"
-              type="text"
-              class="mt-1 block w-full text-right"
-              required
-              autofocus
-            />
-            <div class="text-xs text-red-500" v-if="errors.precio_con_igv">{{ errors.precio_con_igv }}</div>
-          </div>
-        </div>
-        <!-- End Segunda Fila -->
 
-        {{ producto }}
       </div>
     </div>
 
@@ -94,6 +114,8 @@ import AppLayout from '@/Layouts/AppLayout.vue';
 import {Inertia} from '@inertiajs/inertia'
 import {Head, Link, useForm} from '@inertiajs/inertia-vue3';
 import JetButton from '@/Jetstream/Button.vue';
+import JetButtonRed from '@/Jetstream/ButtonRed.vue';
+import JetButtonBlue from '@/Jetstream/ButtonBlue.vue';
 import JetInput from '@/Jetstream/Input.vue';
 import JetLabel from '@/Jetstream/Label.vue';
 import JetValidationErrors from '@/Jetstream/ValidationErrors.vue';
@@ -103,9 +125,11 @@ export default {
     producto: Object,
     errors: Object
   },
-  components:{
+  components: {
     AppLayout,
     JetButton,
+    JetButtonRed,
+    JetButtonBlue,
     JetInput,
     JetLabel,
     JetValidationErrors,
@@ -124,12 +148,14 @@ export default {
     };
   },
   methods: {
-    loading: function (){
+    loading: function () {
       console.log(this.$inertia.page.props.producto)
 
     },
-    submit: function (){
-
+    submit: function () {
+      this.$inertia.put(
+        route("productos.update", this.$props.producto.id),this.form
+      );
     }
   },
   mounted() {

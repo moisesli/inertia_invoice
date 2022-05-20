@@ -33,7 +33,7 @@
                      text-sm
                      rounded-lg
                      font-bold">
-              Nuevo
+              <i class="fa-solid fa-plus"></i> Nuevo
             </Link>
           </div>
         </div>
@@ -55,7 +55,7 @@
             <th scope="col" class="px-6 py-3 text-right">
               Total
             </th>
-            <th scope="col" class="px-6 py-3 text-right">
+            <th scope="col" class="px-6 py-3 text-center">
               Acciones
             </th>
           </tr>
@@ -78,11 +78,11 @@
             <td class="px-6 py-4 text-right">
               {{ producto.precio_con_igv }}
             </td>
-            <td class="px-8 py-4 text-right">
+            <td class="px-8 py-4 text-center">
               <Link
                 :href="route('productos.edit', producto.id)"
-                class="flex-shrink-0 bg-purple-600 text-white text-base font-semibold py-2 px-4 rounded-lg shadow-md hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2 focus:ring-offset-purple-200" type="button">
-                Editar
+                type="button">
+                <i class="text-xl fa-solid fa-file-pen"></i>
               </Link>
             </td>
           </tr>
