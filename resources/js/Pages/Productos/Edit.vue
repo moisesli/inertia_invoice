@@ -10,11 +10,15 @@
 
 
     <div class="max-w-2xl mx-auto">
+
+      <!-- Button Eliminar -->
       <div class="flex justify-end pt-8 pb-4">
-        <JetButtonRed class="bg-red-400">
+        <LinkButtonRed method="delete" :href="route('productos.destroy', producto.id)">
           <i class="fa-regular fa-trash-can pr-2"></i> Eliminar
-        </JetButtonRed>
+        </LinkButtonRed>
       </div>
+      <!-- End Button Eliminar -->
+
       <div class="shadow-md sm:rouned-lg px-8 py-6  bg-white">
 
         <form @submit.prevent="submit">
@@ -92,11 +96,11 @@
 
           <!-- Button -->
           <div class="flex justify-end mt-4">
-            <JetButtonBlue class="ml-4 py-2.5" :class="{ 'opacity-25': form.processing }" :disabled="form.processing">
-              Cancelar
-            </JetButtonBlue>
+            <LinkBlue method="get" :href="route('productos.index')">
+              <i class="fa-solid fa-xmark pr-2"></i> Cancelar
+            </LinkBlue>
             <JetButton class="ml-4 py-2.5" :class="{ 'opacity-25': form.processing }" :disabled="form.processing">
-              Editar Producto
+              <i class="fa-solid fa-pencil pr-2"></i> Editar Producto
             </JetButton>
           </div>
 
@@ -111,7 +115,9 @@
 </template>
 <script>
 import AppLayout from '@/Layouts/AppLayout.vue';
-import {Inertia} from '@inertiajs/inertia'
+import {Inertia} from '@inertiajs/inertia';
+import LinkButtonRed from "../../Jetstream/LinkButtonRed";
+import LinkBlue from "../../Jetstream/LinkBlue";
 import {Head, Link, useForm} from '@inertiajs/inertia-vue3';
 import JetButton from '@/Jetstream/Button.vue';
 import JetButtonRed from '@/Jetstream/ButtonRed.vue';
@@ -134,7 +140,9 @@ export default {
     JetLabel,
     JetValidationErrors,
     useForm,
-    Inertia
+    Inertia,
+    LinkButtonRed,
+    LinkBlue
   },
   data() {
     return {

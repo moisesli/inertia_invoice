@@ -49,13 +49,13 @@ class ProductosController extends Controller
   {
     $request->validate([
       'nombre' => 'required|max:50|unique:productos',
-      'codigo' => 'required|max:25',
+      'codigo' => 'required|max:25|unique:productos',
       'precio_sin_igv' => 'required|numeric',
       'igv' => 'required|numeric',
       'precio_con_igv' => 'required|numeric'
     ]);
 
-    //Producto::create($request->all());
+    Producto::create($request->all());
     return Redirect::route('productos.index');
   }
 
@@ -91,7 +91,14 @@ class ProductosController extends Controller
    */
   public function update(Request $request, Producto $producto)
   {
-    $producto->update($request->all());
+    $request->validate([
+      'nombre' => 'required|max:50',
+      'codigo' => 'required|max:25',
+      'precio_sin_igv' => 'required|numeric',
+      'igv' => 'required|numeric',
+      'precio_con_igv' => 'required|numeric'
+    ]);
+    //$producto->update($request->all());
     return Redirect::route('productos.index');
   }
 
@@ -103,6 +110,7 @@ class ProductosController extends Controller
    */
   public function destroy(Producto $producto)
   {
-    //
+    $producto->delete();
+    return Redirect::route('productos.index');
   }
 }
