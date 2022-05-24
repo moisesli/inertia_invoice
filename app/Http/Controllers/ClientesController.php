@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Cliente;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Redirect;
 use Inertia\Inertia;
 class ClientesController extends Controller
 {
@@ -51,8 +52,8 @@ class ClientesController extends Controller
           'correo' => 'required'
        ]);
 
-       Producto::create($request->all());
-       return Redirect::route('productos.index');
+       Cliente::create($request->all());
+       return Redirect::route('clientes.index');
     }
 
     /**
@@ -74,7 +75,7 @@ class ClientesController extends Controller
      */
     public function edit(Cliente $cliente)
     {
-       return Inertia::render('Clientes/Edit', ['producto' => $cliente]);
+       return Inertia::render('Clientes/Edit', ['cliente' => $cliente]);
     }
 
     /**
