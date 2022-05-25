@@ -98,7 +98,7 @@ class ProductosController extends Controller
       'igv' => 'required|numeric',
       'precio_con_igv' => 'required|numeric'
     ]);
-    //$producto->update($request->all());
+    $producto->update($request->all());
     return Redirect::route('productos.index');
   }
 

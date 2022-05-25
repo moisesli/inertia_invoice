@@ -25,7 +25,7 @@
                      <div class="text-xs text-red-500" v-if="errors.razon_social">{{ errors.razon_social }}</div>
                   </div>
                   <div class="md:w-2/5 md:ml-4 mt-2 md:mt-0">
-                     <JetLabel for="codigo" value="Codigo"/>
+                     <JetLabel value="Ruc o Dni"/>
                      <JetInput
                         id="codigo"
                         placeholder="ARROZ54"

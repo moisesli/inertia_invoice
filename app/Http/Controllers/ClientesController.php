@@ -87,7 +87,17 @@ class ClientesController extends Controller
      */
     public function update(Request $request, Cliente $cliente)
     {
-        //
+       $request->validate([
+          'razon_social' => 'required|max:50',
+          'ruc_dni' => 'required|max:25',
+          'direccion' => 'required',
+          'ubigeo' => 'required',
+          'telefonos' => 'required',
+          'correo' => 'required'
+       ]);
+
+       $cliente->update($request->all());
+       return Redirect::route('clientes.index');
     }
 
     /**
@@ -98,6 +108,7 @@ class ClientesController extends Controller
      */
     public function destroy(Cliente $cliente)
     {
-        //
+       $cliente->delete();
+       return Redirect::route('clientes.index');
     }
 }

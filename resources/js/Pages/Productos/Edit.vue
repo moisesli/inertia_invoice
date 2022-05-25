@@ -158,7 +158,6 @@ export default {
   methods: {
     loading: function () {
       console.log(this.$inertia.page.props.producto)
-
     },
     submit: function () {
       this.$inertia.put(
