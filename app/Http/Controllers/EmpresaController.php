@@ -52,7 +52,6 @@ class EmpresaController extends Controller
       'responsable' => 'required',
       'telefono' => 'required',
       'celular' => 'required',
-      'correo' => 'required',
       'ubigeo' => 'required'
     ]);
 
@@ -91,7 +90,19 @@ class EmpresaController extends Controller
    */
   public function update(Request $request, Empresa $empresa)
   {
-    //
+    $request->validate([
+      'ruc' => 'required|max:25',
+      'razon_social' => 'required|max:50',
+      'razon_comercial' => 'required|max:50',
+      'direccion' => 'required',
+      'responsable' => 'required',
+      'telefono' => 'required',
+      'celular' => 'required',
+      'ubigeo' => 'required'
+    ]);
+
+    $empresa->update($request->all());
+    return Redirect::route('empresas.index');
   }
 
   /**
@@ -102,6 +113,7 @@ class EmpresaController extends Controller
    */
   public function destroy(Empresa $empresa)
   {
-    //
+    $empresa->delete();
+    return Redirect::route('empresas.index');
   }
 }

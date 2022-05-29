@@ -78,7 +78,7 @@
                 class="mt-1 block w-full"
                 required
               />
-              <div class="text-xs text-red-500" v-if="errors.razon_comercial">{{ errors.razon_comercial }}</div>
+              <div class="text-xs text-red-500" v-if="errors.responsable">{{ errors.responsable }}</div>
             </div>
             <div class="md:w-3/12 md:ml-4 mt-2 md:mt-0">
               <JetLabel value="Telefono"/>
@@ -89,7 +89,7 @@
                 class="mt-1 block w-full"
                 required
               />
-              <div class="text-xs text-red-500" v-if="errors.direccion">{{ errors.direccion }}</div>
+              <div class="text-xs text-red-500" v-if="errors.telefono">{{ errors.telefono }}</div>
             </div>
             <div class="md:w-3/12 md:ml-4 mt-2 md:mt-0">
               <JetLabel value="Celular"/>
@@ -100,7 +100,7 @@
                 class="mt-1 block w-full"
                 required
               />
-              <div class="text-xs text-red-500" v-if="errors.direccion">{{ errors.direccion }}</div>
+              <div class="text-xs text-red-500" v-if="errors.celular">{{ errors.celular }}</div>
             </div>
           </div>
           <!-- End Tercera Fila -->
@@ -111,7 +111,7 @@
               <i class="fa-solid fa-x pr-1"></i> Cancelar
             </LinkBlue>
             <JetButton class="ml-4 py-2.5" :class="{ 'opacity-25': form.processing }" :disabled="form.processing">
-              <i class="fa-solid fa-plus pr-1"></i> Crear Cliente
+              <i class="fa-solid fa-plus pr-1"></i> Crear Empresa
             </JetButton>
           </div>
 
@@ -151,7 +151,7 @@
           razon_comercial: 'Abraham Moises Linares Oscco',
           direccion: 'Cm 40 Lt 15 Mz 213 Ciudad Nueva Tacna',
           responsable: 'Cm 40 Lt 15 Mz 213 Ciudad Nueva Tacna',
-          telefonos: '+51 952631806',
+          telefono: '+51 952631806',
           celular: '+51 952631806',
           ubigeo: '879734'
         })
@@ -159,8 +159,8 @@
     },
     methods: {
       submit: function () {
-        this.$inertia.post('/clientes', this.form);
-        console.log(this.form);
+        this.$inertia.post('/empresas', this.form);
+        //console.log(this.form);
       }
     }
   }

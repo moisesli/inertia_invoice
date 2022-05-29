@@ -152,7 +152,7 @@ export default {
    methods: {
       submit: function () {
          this.$inertia.post('/clientes', this.form);
-         console.log(this.form);
+         //console.log(this.form);
       }
    }
 }
