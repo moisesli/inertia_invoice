@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\Cliente;
+use App\Models\Empresa;
 use App\Models\Producto;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -23,6 +24,7 @@ class DatabaseSeeder extends Seeder
        //$this->call(ProductoSeeder::class);
        Producto::factory(50)->create();
        Cliente::factory(50)->create();
+       Empresa::factory(1)->create();
 
        DB::table('users')->insert([
           'name' => Str::random(10),
