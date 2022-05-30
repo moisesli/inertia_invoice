@@ -31,7 +31,7 @@
                 rounded-lg
                 focus:ring-blue-500 focus:border-blue-500
                 block w-80 pl-10 p-2.5"
-                placeholder="Buscar Clientes"/>
+                     placeholder="Buscar Clientes"/>
             </div>
           </div>
           <div class="px-6">
@@ -85,7 +85,7 @@
             <td class="px-8 py-4 text-center">
               <Link
                 :href="route('empresas.edit', empresa.id)"
-                type="button">
+                type="button">¡
                 <i class="text-xl fa-regular fa-file"></i>
               </Link>
             </td>
@@ -93,6 +93,10 @@
           </tbody>
         </table>
         <pagination :links="empresas.links"/>
+
+        <pre>
+          {{ opens }}
+        </pre>
       </div>
     </div>
 
@@ -108,7 +112,8 @@ import _ from 'lodash';
 export default {
   props: {
     empresas: Object,
-    filters: Object
+    filters: Object,
+    opens: Object
   },
   components: {
     AppLayout,

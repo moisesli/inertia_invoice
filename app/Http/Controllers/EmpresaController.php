@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Empresa;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 use Inertia\Inertia;
 
@@ -17,11 +18,14 @@ class EmpresaController extends Controller
   public function index(Request $request)
   {
     $empresas = Empresa::where('empresas.razon_social', 'like', '%' . $request->busq . '%')->paginate(7)->withQueryString();
+    session(['moises' => 'Linares Oscco']);
+    $opens = Auth::user();
     return Inertia::render(
       'Empresa/List',
       [
         'empresas' => $empresas,
-        'filters' => ['busq' => $request->busq]
+        'filters' => ['busq' => $request->busq],
+        'opens' => $opens
       ]
     );
   }
